@@ -1,0 +1,19 @@
+@very-dark: #3C404B;
+@dark: lighten(@very-dark, 10%);
+@normal: lighten(@dark, 30%);
+@light: lighten(@normal, 30%);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+}
+
+@import "../components/clock/clock";
+@import "../components/clockSection/clockSection";
+@import "../components/arrow/arrow";
+@import "../components/digital/digital";

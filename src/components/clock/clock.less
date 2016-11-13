@@ -1,0 +1,111 @@
+main {
+    background-color: @normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: @very-dark;
+    padding: 50px 10px;
+
+    h1 {
+        font-family: Sans-serif;
+        font-weight: 100;
+        position: relative;
+        top: 165px;
+
+        @media(max-width: 615px) {
+            top: 90px
+        }
+        @media(max-width: 416px) {
+            top: 70px;
+            font-size: 22px;
+        }
+    }
+
+    .buttonWrapper {
+        position: relative;
+        top: 440px;
+        button {
+            padding: 2px 5px;
+            margin: 0 3px;
+            border: none;
+            background: transparent;
+            color: darken(#85c1f2, 10%);
+            font-weight: 100;
+            font-size: 14px;
+        }
+    }
+
+    #cont {
+        width: 600px;
+        height: 600px;
+        background: @light;
+        border: 1px solid @very-dark;
+        border-radius: 50%;
+        position: relative;
+        
+        @media(max-width: 615px) {
+            width: 400px;
+            height: 400px;
+        }
+        @media(max-width: 416px) {
+            width: 300px;
+            height: 300px;
+        }
+        
+        #center {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            left: 287px;
+            top: 287px;
+            background: black;
+            border-radius: 50%;
+            z-index: 10;
+
+            @media(max-width: 615px) {
+                left: 188px;
+                top: 188px;
+            }
+            @media(max-width: 416px) {
+                left: 138px;
+                top: 138px;
+            }
+        }
+
+        #crosshair-x {
+            width: 600px;
+            height: 1px;
+            background: gray;
+            position: absolute;
+            left: 0;
+            top: 300px;
+
+            @media(max-width: 615px) {
+                width: 400px;
+                top: 200px;
+            }
+            @media(max-width: 416px) {
+                width: 300px;
+                top: 150px;
+            }
+        }
+
+        #crosshair-y {
+            width: 1px;
+            height: 600px;
+            background: gray;
+            position: absolute;
+            left: 300px;
+            top: 0;
+
+            @media(max-width: 615px) {
+                height: 400px;
+                left: 200px;
+            }
+            @media(max-width: 416px) {
+                height: 300px;
+                left: 150px;
+            }
+        }
+    }
+}
