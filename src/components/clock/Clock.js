@@ -113,7 +113,7 @@ class App extends Component {
         } else {
             clockType = <div className="timerSection">
                 <button onClick={this.startTimer.bind(this)}>START</button>
-                <button onClick={this.stopTimer.bind(this)}>STOP</button>
+                <button className="stopButton" onClick={this.stopTimer.bind(this)}>STOP</button>
                 <Digital timerType={this.state.timerType} />
                 <div id="center"></div>
                 <Arrow arrowType="timerArrow" width={this.state.contHeight / 2.1} time={this.state.timerTime} />

@@ -129,13 +129,26 @@ main {
     }
     .timerSection {
         button {
-            background: green;
+            border: 1px solid green;
+            border-radius: 50%;
             height: 80px;
             width: 80px;
-            border-radius: 50%;
-            color: white;
+            color: green;
             font-size: 18px;
-            border: none;
+            background: transparent;
+            position: relative;
+            top: 200px;
+            left: -50px;
+
+            &:focus {outline:0;}
+            cursor: pointer;
+
+            &:active {background: @very-dark; color: white}
+        }
+        .stopButton {
+            left: 50px;
+            color: red;
+            border-color: red;
         }
     }
 }
