@@ -9,7 +9,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            timeType: 'standard',
+            timerType: 'standard',
+            timerTime: 0
         }
         this.handleSize = this.handleSize.bind(this)
         this.timer = this.timer.bind(this)
@@ -78,41 +79,63 @@ class App extends Component {
                 hourValue={hourValue}
                 left={left}
                 top={top}
+                timerType={this.state.timerType}
             />)
         );
     }
 
     getTime() {
-        const seconds = moment().get('second'),
-            milliseconds = moment().get('millisecond'),
-            secAngle = 360 / seconds,
-            millAngle = 360 / milliseconds;
-
         return {
             hours: moment().get('hour'),
             minutes: moment().get('minute'),
-            seconds,
-            milliseconds,
-            millAngle,
-            secAngle
+            seconds: moment().get('second')
         };
     }
 
+    startTimer() {
+        console.log(moment().valueOf())
+    }
+
+    stopTimer() {
+
+    }
+
     render() {
-        return <main>
-            <div id="cont">
-                <h1>THE CLOCK</h1>
-                <div className="buttonWrapper">
-                    <button onClick={() => this.setState({getTime: 'standard'})}>Standard</button>
-                    <button onClick={() => this.setState({getTime: 'military'})}>Military</button>
-                    <button onClick={() => this.setState({getTime: 'timer'})}>Timer</button>
-                </div>
-                <Digital />
+        let clockType = '';
+        if (this.state.timerType !== 'timer') {
+            clockType = <div>
+                <Digital timerType={this.state.timerType} />
                 <div id="center"></div>
                 <Arrow arrowType="secondsArrow" width={this.state.contHeight / 2.1} time={this.getTime()} />
                 <Arrow arrowType="minutesArrow" width={this.state.contHeight / 2.1} time={this.getTime()} />
                 <Arrow arrowType="hoursArrow" width={this.state.contHeight / 2.6} time={this.getTime()} />
+            </div>;
+        } else {
+            clockType = <div className="timerSection">
+                <button onClick={this.startTimer.bind(this)}>START</button>
+                <button onClick={this.stopTimer.bind(this)}>STOP</button>
+                <Digital timerType={this.state.timerType} />
+                <div id="center"></div>
+                <Arrow arrowType="timerArrow" width={this.state.contHeight / 2.1} time={this.state.timerTime} />
+            </div>;
+        }
+
+        return <main>
+            <div id="cont">
+                <h1>THE CLOCK</h1>
+                <div className="buttonWrapper">
+                    <button
+                        className={this.state.timerType === "standard" ? "activeButton" : ""}
+                        onClick={() => this.setState({timerType: 'standard'})}>Standard</button>
+                    <button
+                        className={this.state.timerType === "military" ? "activeButton" : ""}
+                        onClick={() => this.setState({timerType: 'military'})}>Military</button>
+                    <button 
+                        className={this.state.timerType === "timer" ? "activeButton" : ""}
+                        onClick={() => this.setState({timerType: 'timer'})}>Timer</button>
+                </div>
                 {this.state.contHeight ? this.getClockSections() : ''}
+                {clockType}
             </div>
         </main>;
     }

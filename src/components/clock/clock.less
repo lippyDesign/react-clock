@@ -32,6 +32,25 @@ main {
             color: darken(#85c1f2, 10%);
             font-weight: 100;
             font-size: 14px;
+            cursor: pointer;
+
+            &:focus {outline:0;}
+
+            @media(max-width: 615px) {
+                font-size: 12px;
+            }
+        }
+
+        @media(max-width: 615px) {
+            top: 260px
+        }
+        @media(max-width: 416px) {
+            top: 200px;
+            font-size: 12px;
+        }
+
+        .activeButton {
+            border-bottom: 2px solid green;
         }
     }
 
@@ -106,6 +125,17 @@ main {
                 height: 300px;
                 left: 150px;
             }
+        }
+    }
+    .timerSection {
+        button {
+            background: green;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            border: none;
         }
     }
 }

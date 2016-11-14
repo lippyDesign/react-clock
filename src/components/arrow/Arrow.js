@@ -23,6 +23,10 @@ export default class Arrow extends Component {
             const arrow = document.getElementById(this.props.arrowType);
             arrow.style.transform = 'rotate('+ ( (this.props.time.hours * 30) + (0.5 * this.props.time.minutes) - 90) +'deg)';
         }
+        if (this.props.arrowType === 'timerArrow') {
+            const arrow = document.getElementById(this.props.arrowType);
+            arrow.style.transform = 'rotate('+ (this.props.time - 90) +'deg)';
+        }
     }
 
     render() {
