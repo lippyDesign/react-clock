@@ -10,7 +10,8 @@ class App extends Component {
         super();
         this.state = {
             timerType: 'standard',
-            timerTime: 0
+            millisecondsElapsed: 0,
+            timerId: null
         }
         this.handleSize = this.handleSize.bind(this)
         this.timer = this.timer.bind(this)
@@ -20,7 +21,7 @@ class App extends Component {
         this.handleSize();
         window.addEventListener('resize', this.handleSize);
         var intervalId = setInterval(this.timer, 1000);
-        this.setState({intervalId: intervalId});
+        this.setState({intervalId});
     }
 
     componentWillUnmount() {
@@ -93,11 +94,30 @@ class App extends Component {
     }
 
     startTimer() {
-        console.log(moment().valueOf())
+        
+        if (!this.state.paused && !this.state.timerId) {
+            const timerId = setInterval( () => {
+                this.setState({millisecondsElapsed: this.state.millisecondsElapsed + 10, paused : false})
+            }, 10);
+            this.setState({timerId})
+        } else if (this.state.paused) {
+            const timerId = setInterval( () => {
+                this.setState({millisecondsElapsed: this.state.millisecondsElapsed + 10, paused : false})
+            }, 10);
+            this.setState({timerId})
+        }
+        
     }
 
     stopTimer() {
-
+        if (!this.state.paused) {
+            this.setState({paused : true});
+            clearInterval(this.state.timerId);
+        } else {
+            this.setState({paused : false, millisecondsElapsed : 0});
+            clearInterval(this.state.timerId);
+            this.setState({timerId: null})
+        }
     }
 
     render() {
@@ -112,11 +132,15 @@ class App extends Component {
             </div>;
         } else {
             clockType = <div className="timerSection">
-                <button onClick={this.startTimer.bind(this)}>START</button>
-                <button className="stopButton" onClick={this.stopTimer.bind(this)}>STOP</button>
-                <Digital timerType={this.state.timerType} />
+                <button onClick={this.startTimer.bind(this)}>
+                    {this.state.millisecondsElapsed ? 'RESUME' : 'START'}
+                </button>
+                <button className="stopButton" onClick={this.stopTimer.bind(this)}>
+                    {this.state.paused ? 'CLEAR' : 'PAUSE'}
+                </button>
+                <Digital timerType={this.state.timerType} millisecondsElapsed={this.state.millisecondsElapsed}/>
                 <div id="center"></div>
-                <Arrow arrowType="timerArrow" width={this.state.contHeight / 2.1} time={this.state.timerTime} />
+                <Arrow arrowType="timerArrow" width={this.state.contHeight / 2.1} time={(this.state.millisecondsElapsed)} />
             </div>;
         }
 
@@ -132,7 +156,7 @@ class App extends Component {
                         onClick={() => this.setState({timerType: 'military'})}>Military</button>
                     <button 
                         className={this.state.timerType === "timer" ? "activeButton" : ""}
-                        onClick={() => this.setState({timerType: 'timer'})}>Timer</button>
+                        onClick={() => this.setState({timerType: 'timer'})}>Stopwatch</button>
                 </div>
                 {this.state.contHeight ? this.getClockSections() : ''}
                 {clockType}

@@ -25,7 +25,7 @@ export default class Arrow extends Component {
         }
         if (this.props.arrowType === 'timerArrow') {
             const arrow = document.getElementById(this.props.arrowType);
-            arrow.style.transform = 'rotate('+ (this.props.time - 90) +'deg)';
+            arrow.style.transform = 'rotate('+ ((this.props.time / 1000) * 6 - 90) +'deg)';
         }
     }
 
